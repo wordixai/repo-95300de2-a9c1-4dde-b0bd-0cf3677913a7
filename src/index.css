@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Comic+Neue:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,10 +10,255 @@ The @apply directive should not be used with the group utility class.
 
 @layer base {
   :root {
-   
+    /* Pop Art Color Palette */
+    --pop-orange: 24 100% 50%;
+    --pop-pink: 330 100% 70%;
+    --pop-yellow: 50 100% 60%;
+    --pop-cyan: 190 100% 50%;
+    --pop-purple: 280 100% 70%;
+    --pop-lime: 90 100% 50%;
+    
+    /* Comic Style Colors */
+    --comic-black: 0 0% 10%;
+    --comic-white: 0 0% 98%;
+    --comic-shadow: 220 13% 9%;
+    
+    /* Background gradients */
+    --bg-gradient: linear-gradient(45deg, hsl(var(--pop-orange)) 0%, hsl(var(--pop-pink)) 100%);
+    --card-gradient: linear-gradient(135deg, hsl(var(--pop-yellow)) 0%, hsl(var(--pop-cyan)) 100%);
+    
+    /* Design tokens */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--pop-pink);
+    --background: var(--comic-white);
+    --foreground: var(--comic-black);
+    --primary: var(--pop-orange);
+    --primary-foreground: var(--comic-white);
+    --secondary: var(--pop-pink);
+    --secondary-foreground: var(--comic-white);
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--comic-white);
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    --accent: var(--pop-cyan);
+    --accent-foreground: var(--comic-black);
+    --popover: var(--comic-white);
+    --popover-foreground: var(--comic-black);
+    --card: var(--comic-white);
+    --card-foreground: var(--comic-black);
+    --sidebar-background: var(--comic-white);
+    --sidebar-foreground: var(--comic-black);
+    --sidebar-primary: var(--pop-orange);
+    --sidebar-primary-foreground: var(--comic-white);
+    --sidebar-accent: var(--pop-pink);
+    --sidebar-accent-foreground: var(--comic-white);
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--ring);
+    --radius: 12px;
   }
 
   .dark {
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: var(--pop-pink);
+    --background: var(--comic-shadow);
+    --foreground: var(--comic-white);
+  }
 
+  body {
+    font-family: 'Comic Neue', cursive;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+  }
+
+  /* Pop Art Dot Pattern */
+  .dot-pattern {
+    background-image: radial-gradient(circle, hsl(var(--comic-black)) 2px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+  }
+
+  /* Halftone effect */
+  .halftone::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.3) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@layer components {
+  /* Pop Frame styling */
+  .pop-frame {
+    position: relative;
+    border: 4px solid hsl(var(--comic-black));
+    border-radius: var(--radius);
+    box-shadow: 
+      8px 8px 0px hsl(var(--pop-yellow)),
+      12px 12px 0px hsl(var(--comic-black));
+    transform: rotate(-1deg);
+    transition: all 0.3s ease;
+  }
+
+  .pop-frame:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 
+      12px 12px 0px hsl(var(--pop-pink)),
+      16px 16px 0px hsl(var(--comic-black));
+  }
+
+  /* Comic bubble effect */
+  .comic-bubble {
+    position: relative;
+    background: hsl(var(--comic-white));
+    border: 3px solid hsl(var(--comic-black));
+    border-radius: 20px;
+    padding: 1rem;
+  }
+
+  .comic-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid hsl(var(--comic-black));
+  }
+
+  .comic-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 22px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid hsl(var(--comic-white));
+  }
+
+  /* Hand-drawn button style */
+  .hand-drawn-btn {
+    position: relative;
+    background: hsl(var(--pop-orange));
+    color: hsl(var(--comic-white));
+    border: 3px solid hsl(var(--comic-black));
+    border-radius: 15px;
+    padding: 12px 24px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    transform: rotate(-1deg);
+    box-shadow: 4px 4px 0px hsl(var(--comic-black));
+  }
+
+  .hand-drawn-btn:hover {
+    transform: rotate(1deg) translateY(-2px);
+    background: hsl(var(--pop-pink));
+    box-shadow: 6px 6px 0px hsl(var(--comic-black));
+  }
+
+  .hand-drawn-btn:active {
+    transform: rotate(0deg) translateY(0px);
+    box-shadow: 2px 2px 0px hsl(var(--comic-black));
+  }
+
+  /* Bounce animation */
+  .bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.3) rotate(-5deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.05) rotate(1deg);
+    }
+    70% {
+      transform: scale(0.9) rotate(-0.5deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  /* Wobble animation for buttons */
+  .wobble:hover {
+    animation: wobble 0.6s ease-in-out;
+  }
+
+  @keyframes wobble {
+    0% { transform: rotate(-1deg); }
+    15% { transform: rotate(-5deg); }
+    30% { transform: rotate(3deg); }
+    45% { transform: rotate(-3deg); }
+    60% { transform: rotate(2deg); }
+    75% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  /* POW! explosion effect */
+  .pow-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pow-effect::after {
+    content: 'POW!';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    color: hsl(var(--pop-yellow));
+    text-shadow: 
+      -2px -2px 0 hsl(var(--comic-black)),
+      2px -2px 0 hsl(var(--comic-black)),
+      -2px 2px 0 hsl(var(--comic-black)),
+      2px 2px 0 hsl(var(--comic-black));
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  .pow-effect:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .text-pop {
+    font-family: 'Permanent Marker', cursive;
+    text-shadow: 
+      -1px -1px 0 hsl(var(--comic-black)),
+      1px -1px 0 hsl(var(--comic-black)),
+      -1px 1px 0 hsl(var(--comic-black)),
+      1px 1px 0 hsl(var(--comic-black));
+  }
+
+  .bg-pop-gradient {
+    background: var(--bg-gradient);
+  }
+
+  .bg-card-gradient {
+    background: var(--card-gradient);
   }
 }
